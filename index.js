@@ -58,20 +58,13 @@ app.put("/contactos/edita/:id", function (req, res) {
 });
 
 app.delete("/contactos/eliminar/:id", function (req, res) {
-
-    let contacto = Agenda.findAll(function (item) {
-        return item.id === parseInt(req.params.id);
-      });
-    
-      if (contacto) {
-        let encontrado = Agenda.indexOf(contacto);
-    
-        Agenda.splice(encontrado, 1);
-    
-        res.status(200).json("contacto eliminado");
-      } else {
-        res.status(404).json("No existe el contacto");
-      }
+    return Agenda.destroy({
+        where: {
+                id: req.params.id
+        }
+    })
+    .then(Agenda => res.status(200).send(Agenda))
+    .catch(error => res.status(400).send(error))
 });
 
 //Verificación de ambiente   
