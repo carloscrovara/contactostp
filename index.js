@@ -63,7 +63,7 @@ app.delete("/contactos/eliminar/:id", function (req, res) {
                 id: req.params.id
         }
     })
-    .then(Agenda => res.status(200).send(Agenda))
+    .then(Agenda => res.sendStatus(200, Agenda))
     .catch(error => res.status(400).send(error))
 });
 
